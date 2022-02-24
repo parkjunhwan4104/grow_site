@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GROW</title>
+</head>
+<body>
+<div class="header">
+
+    <nav class="flex mt-6 mx-auto p-3">
+
+        <ul class="flex">
+            <a href="/"  class="text-2xl ml-24">
+                <span>GROW</span>
+            </a>
+        </ul>
+
+        <ul class="flex ml-auto mr-24">
+            <li sec:authorize="isAnonymous()">
+                <span>로그인</span>
+
+                <span>회원가입</span>
+
+
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
