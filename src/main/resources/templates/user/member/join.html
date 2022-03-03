@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+
+        let err_msg = [[ ${err_msg} ]]
+
+        if( err_msg != null || err_msg != undefined ){
+
+        alert(err_msg);
+
+        }
+
+        /*]]*/
+
+    </script>
+    <script src="/js/join.js"></script>  <!-- body에서 중복확인을 할 때 미리 이에 대한 로직이 필요하므로 헤더에 넣어준거 -->
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="mb-20"></div>
+
+    <div class="container flex justify-center mx-auto">
+
+        <div class="join-form border p-20 rounded-lg shadow-md">
+
+            <div class="join-title text-2xl flex justify-center mb-12">
+                <span> 회원가입</span>
+            </div>
+
+            <form action="" th:action="@{~/members/join}" th:object="${memberSaveForm}" method="POST" onsubmit="return checkStatus()">
+                <div class="flex justify-center">
+                    <div class="flex-col">
+                        <div class="form-item mb-4">
+                            <input id="loginId" class="border rounded p-1 rounded bg-gray-50" name="loginId" type="text" placeholder="아이디" autocomplete="off" th:field="*{loginId}" th:errorclass="field-error">
+                            <span th:errors="*{loginId}"></span>
+                            <button type="button" onclick="checkDupleLoginId()">중복확인</button>
+                        </div>
+
+                        <div class="form-item mb-4">
+                            <input class="border rounded p-1 rounded bg-gray-50" name="loginPw" type="password" placeholder="비밀번호" autocomplete="off" th:field="*{loginPw}" th:errorclass="field-error">
+                            <span th:errors="*{loginPw}"></span>
+                        </div>
+
+
+
+                        <div class="form-item mb-4">
+                            <input id="nickName" class="border rounded p-1 rounded bg-gray-50" name="nickName" type="text" placeholder="학번_이름 " autocomplete="off" th:field="*{nickName}" th:errorclass="field-error">
+                            <span th:errors="*{nickName}"></span>
+                            <button type="button" onclick="checkDupleNickName()">중복확인</button>
+                        </div>
+
+                        <div class="form-item mb-6">
+                            <input id="email" class="border rounded p-1 rounded bg-gray-50" name="email" type="email" placeholder="이메일" autocomplete="off" th:field="*{email}" th:errorclass="field-error">
+                            <span th:errors="*{email}"></span>
+                            <button type="button" onclick="checkDupleEmail()">중복확인</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="form-item flex justify-center mt-8">
+                    <button class="mr-4 border bg-blue-500 p-2 rounded text-white">회원가입</button>
+                    <a href="/">
+                        <button class="border bg-blue-500 p-2 rounded text-white" type="button">
+                            취소
+                        </button>
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@1.24.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<header th:fragment="headerFragment">
+
+    <div class="header">
+
+        <nav class="flex mt-6 mx-auto p-3">
+
+            <ul class="flex">
+                <a href="/"  class="text-2xl ml-24">
+                    <span class="text-3xl">GROW</span>
+                </a>
+            </ul>
+
+            <ul class="flex ml-auto mr-24">
+                <li sec:authorize="isAnonymous()">
+                    <a class="mr-4" th:href="@{~/members/login}">로그인</a>
+
+                    <a  th:href="@{~/members/join}">회원가입</a>
+
+
+                </li>
+
+
+
+                <li sec:authorize="isAuthenticated()">
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" class="m-1 btn" sec:authentication="principal.nickName" type="button">님</div>
+                        <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                            <li sec:authorize="hasRole('ROLE_ADMIN')">
+                                <a th:href="@{~/admin/page}">관리자 페이지</a>
+                            </li>
+
+                            <li>
+                                <a href="/articles/write/">게시글 작성</a>
+                            </li>
+                            <li>
+                                <a href="/members/modify/">회원 정보 수정</a>
+                            </li>
+                            <li>
+                                <a href="/members/logout/">로그아웃</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </li>
+
+
+            </ul>
+        </nav>
+    </div>
+
+</header>
+<body>
+
+</body>
+</html>
