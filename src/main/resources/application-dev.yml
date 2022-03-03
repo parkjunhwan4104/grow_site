@@ -11,6 +11,16 @@ spring:
     username: [아이디]
     password: [비밀번호]
 
+  devtools:
+    livereload:
+      enabled: true
+
+    freemarker:
+      cache: false
+
+    thymeleaf:
+      cache: false
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
