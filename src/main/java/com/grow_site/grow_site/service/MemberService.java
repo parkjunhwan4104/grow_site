@@ -55,6 +55,8 @@ public class MemberService implements UserDetailsService {
                 memberSaveForm.getEmail()
         );
 
+
+        System.out.println(memberSaveForm.getLoginId());
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         Member member= Member.createMember(
                 memberSaveForm.getLoginId(),

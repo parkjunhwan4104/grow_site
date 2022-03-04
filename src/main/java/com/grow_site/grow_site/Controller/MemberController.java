@@ -53,13 +53,19 @@ public class MemberController {
 
     @GetMapping("/members/join")
     public String showJoin(Model model){
+        MemberSaveForm memberSaveForm=new MemberSaveForm();
 
-        model.addAttribute("memberSaveForm",new MemberSaveForm());
+        int a=1;
+
+        model.addAttribute("number1",a);
+
+        model.addAttribute("memberSaveForm",memberSaveForm);
         return "user/member/join";
     }
 
     @PostMapping("/members/join")
     public String doJoin(@Validated MemberSaveForm memberSaveForm, BindingResult bindingResult,Model model){
+
         if(bindingResult.hasErrors()){
             return "user/member/join";
         }
@@ -70,6 +76,9 @@ public class MemberController {
         catch(Exception e){
             model.addAttribute("err_msg",e.getMessage());
         }
+
+
+
         return "redirect:/";
     }
 }
