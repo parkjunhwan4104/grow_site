@@ -16,14 +16,16 @@ public class Datainit {
 
     private final InitService initService;
     private final MemberRepository memberRepository;
-    @PostConstruct
+
+
+   /* @PostConstruct
     public void init(){
 
         if(!memberRepository.existsByLoginId("wnsghks4104")){
             initService.initAdmin();
         }
 
-    }
+    }*/
 
     @Component
     @Transactional
