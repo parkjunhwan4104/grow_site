@@ -20,6 +20,8 @@ public class MemberController {
     private final MemberService memberService;  //final을 붙여 Controller 내부에서 service 객체를 바꿔치기 할 수 없도록 함
 
 
+
+
     @RequestMapping("/members/check/id")
     @ResponseBody
     public CheckStatus checkDupleLoginId(@RequestParam String loginId){

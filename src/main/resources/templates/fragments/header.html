@@ -5,61 +5,284 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.24.3/dist/full.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 </head>
 
-<header th:fragment="headerFragment">
 
-    <div class="header">
+<header th:fragment="headerFragment" >
+    <style>
+            /* 노말라이즈 */
+body, ul, li {
+    margin:0;
+    padding:0;
+    list-style:none;
 
-        <nav class="flex mt-6 mx-auto p-3">
+}
 
-            <ul class="flex">
-                <a href="/"  class="text-2xl ml-24">
-                    <span class="text-3xl">GROW</span>
-                </a>
-            </ul>
+a {
+    color:inherit;
+    text-decoration:none;
+}
 
-            <ul class="flex ml-auto mr-24">
-                <li sec:authorize="isAnonymous()">
-                    <a class="mr-4" th:href="@{~/members/login}">로그인</a>
+label[for] {
+    cursor:pointer;
+    user-select:none;
+}
 
-                    <a th:href="@{/members/join}">회원가입</a>
+/* 라이브러리 */
+
+
+
+.con {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+
+.height-100p {
+    height:100%;
+}
+
+
+* > .flex {
+    display:flex;
+}
+
+
+* > .flex-jc-sb {
+    justify-content:space-between;
+}
+
+* > .flex-ai-c {
+    align-items:center;
+}
+.flex-jc-c {
+    justify-content:center;
+}
+
+/*커스텀*/
+
+
+
+/* 고정형 .con 시작 */
+
+
+.con {
+   max-width:1150px;
+
+}
+
+
+
+
+.top_bar{
+  width: 100%;
+  height:72.8px;
+  position:fixed;
+  border-bottom:1px solid #e9e9e9;
+
+  display:block;
+}
+
+
+
+.top_bar .menu_bar>ul>li{
+  margin:0 25px;
+  position:relative;
+}
+
+
+.top_bar .menu_bar>ul>li>a{
+
+  font-size:1.05rem;
+  font-weight:bold;
+  position:relative;
+
+
+}
+
+.top_bar .menu_bar>ul>li>a::after{
+
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    border-bottom:3.5px solid black;
+    width:0%;
+    transition:visibility .3s, width .3s;
+    visibility:hidden;
+
+}
+
+.top_bar .menu_bar>ul>li:hover>a::after{
+  visibility:visible;
+  width:100%;
+}
+
+
+.top_bar .menu_bar>ul>li>ul{
+
+  position:absolute;
+  top:100%;
+  left:0;
+  white-space:nowrap;
+
+  z-index:11;
+  opacity:0;
+  transition:opacity 0.3s,visibility .3s;
+
+  /*마우스를 올렸을 때 투명하게하고 클릭도 안되게함(이걸 안하면 투명한데 클릭이 됨 마우스가 반응함) */
+  visibility:hidden;
+
+
+}
+.top_bar .menu_bar>ul>li:hover>ul{
+  visibility:visible;
+  opacity:1;
+
+
+}
+
+
+.top_bar .menu_bar>ul ul>li:first-child{
+
+  padding-top:20px;
+}
+
+.top_bar .menu_bar>ul ul>li{
+  padding-bottom:20px;
+}
+
+.top_bar .menu_bar>ul ul>li>a{
+  font-weight:bold;
+  color:#666;
+}
+
+.top_bar .menu_bar>ul ul>li:hover>a{
+  color:black;
+
+}
+
+.top_bar .menu_bar>.bg{
+  background-color: white;
+  position:absolute;
+  top:calc(100% + 1px);
+  left:0;
+  width:100%;
+  z-index:1;
+  transition:height .3s;
+
+}
+
+
+.last_ele>li{
+
+  margin-left:30px;
+
+}
+
+.last_ele > li>a{
+  font-size:1.0rem;
+  font-weight:bold;
+
+}
+
+
+    </style>
+    <div class="top_bar ">
+        <div class="con height-100p flex flex-jc-sb ">
+            <a class="logo flex flex-ai-c" href="#">
+
+                <span class="text-4xl ">GROW</span>
+            </a>
+
+            <nav class="menu_bar ">
+                <div class="bg"></div>
+                <ul class="flex  height-100p  ">
+                    <li  >
+                        <a  class="flex flex-ai-c height-100p " href="#">공지사항</a>
+
+                    </li>
+                    <li  >
+                        <a class="flex flex-ai-c height-100p" href="#">GAME</a>
+
+                    </li>
+                    <li  >
+                        <a class="flex flex-ai-c height-100p " href="#">ROBOT</a>
+
+                    </li>
+                    <li >
+                        <a class="flex flex-ai-c height-100p " href="#">WEARALBE</a>
+
+                    </li>
+                    <li >
+                        <a class="flex flex-ai-c height-100p  " href="#">시험자료</a>
+
+                    </li>
+
+
+
+                </ul>
+
+
+            </nav>
+
+
+            <div class="last_ele flex " sec:authorize="isAnonymous()">
+                <li class="">
+                    <a class="flex flex-ai-c height-100p  " href="#">로그인</a>
+
+
+
 
                 </li>
 
-
-
-                <li sec:authorize="isAuthenticated()">
-                    <div class="dropdown dropdown-end">
-                        <div tabindex="0" class="m-1 btn" sec:authentication="principal.nickName" type="button">님</div>
-                        <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                            <li sec:authorize="hasRole('ROLE_ADMIN')">
-                                <a th:href="@{~/admin/page}">관리자 페이지</a>
-                            </li>
-
-                            <li>
-                                <a href="/articles/write/">게시글 작성</a>
-                            </li>
-                            <li>
-                                <a href="/members/modify/">회원 정보 수정</a>
-                            </li>
-                            <li>
-                                <a href="/members/logout/">로그아웃</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                    <a class="flex flex-ai-c height-100p " th:href="@{~/members/join}">회원가입</a>
 
                 </li>
 
+            </div>
 
-            </ul>
-        </nav>
+            <div class="" sec:authorize="isAuthenticated()">
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" class="m-1 btn" sec:authentication="principal.username" type="button">님</div>
+                    <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{~/admin/page}">관리자 페이지</a>
+                        </li>
+
+                        <li>
+                            <a href="/articles/write/">게시글 작성</a>
+                        </li>
+                        <li>
+                            <a href="/members/modify/">회원 정보 수정</a>
+                        </li>
+                        <li>
+                            <a href="/members/logout/">로그아웃</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+
     </div>
 
-</header>
-<body>
 
-</body>
+
+
+
+
+
+
+
+</header>
+
 </html>

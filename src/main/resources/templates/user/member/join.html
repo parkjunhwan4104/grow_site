@@ -35,7 +35,7 @@
                 <span> 회원가입</span>
             </div>
 
-     <form action="/user/member/join.html" th:action method="POST" onsubmit="return checkStatus()">
+     <form th:action="@{http://54.180.26.213/members/join}"   method="POST" onsubmit="return checkStatus()">
                 <div class="flex justify-center" >
                     <div class="flex-col">
                         <div class="form-item mb-4">
@@ -68,7 +68,7 @@
 
 
                 <div class="form-item flex justify-center mt-8">
-                    <button class="mr-4 border bg-blue-500 p-2 rounded text-white" type="submit"  >회원가입</button>
+                    <button class="mr-4 border bg-blue-500 p-2 rounded text-white" type="submit" >회원가입</button>
                     <a href="/">
                         <button class="border bg-blue-500 p-2 rounded text-white" type="button">
                             취소
