@@ -55,13 +55,10 @@ public class MemberController {
 
     @GetMapping("/members/join")
     public String showJoin(Model model){
-        MemberSaveForm memberSaveForm=new MemberSaveForm();
 
-        int a=1;
 
-        model.addAttribute("number1",a);
 
-        model.addAttribute("memberSaveForm",memberSaveForm);
+        model.addAttribute("memberSaveForm",new MemberSaveForm());
         return "user/member/join";
     }
 
