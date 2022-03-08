@@ -90,6 +90,11 @@ public class MemberController {
         return "user/member/login";
     }
 
+    @GetMapping("/error/deny")
+    public String showError(){
+        return "error/deny";
+    }
+
 
 }
 

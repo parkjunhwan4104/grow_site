@@ -21,17 +21,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests(authorize ->authorize
+
+
+        http
+
+                .authorizeRequests(authorize ->authorize
 
 
 
                 .mvcMatchers("/members/join","/members/login","/members/check/**").anonymous() //URL이 간소화될수있도록함,  회원가입하는 url, 어나니머스는 로그인이 되지 않은 사람도 해당 페이지를 들어갈수 있도록함
 
-                .mvcMatchers("/","/aritcles/**").permitAll() // 로그인한 사람만 게시글에 대한 기능을 사용할 수 있도록 하는거
+                .mvcMatchers("/").permitAll() // 로그인한 사람만 게시글에 대한 기능을 사용할 수 있도록 하는거
+                .mvcMatchers("/admin/**","/boards/ROBOT","/boards/WEARABLE","/boards/GAME").authenticated()
+                .mvcMatchers("/boards/공지사항","/boards/시험자료").hasAnyRole("ADMIN","MEMBER")
+                .mvcMatchers("/boards/**").hasRole("ADMIN")
 
                 .anyRequest()
                 .denyAll() //위의 3개 페이지말고는 모두 다 거절해라
-        )
+                )
+
                 .formLogin()
                     .loginPage("/members/login")
                     .loginProcessingUrl("/members/doLogin")   //로그인이 이루어지는 페이지
@@ -53,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .maxSessionsPreventsLogin(true)  //동시접속을 차단해줌
                         .expiredUrl("/");  //세션이 만료시에 이동할 url을 정해줌
 
-
+        http.exceptionHandling().accessDeniedPage("/error/deny");
     }
 
     @Bean //메소드에서 선언이되어 개발자들이 수동으로 등록해주는거
