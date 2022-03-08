@@ -10,23 +10,29 @@
     <style>
 
     @media (prefers-color-scheme: black){
-  body{
-    background: white;
-    color: black;
-  }
-}
+          body{
+            background: white;
+            color: black;
+          }
+    }
 
     .content-container{
 
         padding-top:72.8px;
 
+
+
     }
+
+
 
 
     </style>
 </head>
 <body>
 <header th:replace="fragments/header::headerFragment"></header>
+
+
 <div class="content-container" layout:fragment="content"></div>
 
 

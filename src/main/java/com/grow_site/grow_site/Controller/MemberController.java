@@ -1,6 +1,7 @@
 package com.grow_site.grow_site.Controller;
 
 import com.grow_site.grow_site.DTO.member.CheckStatus;
+import com.grow_site.grow_site.DTO.member.MemberLoginForm;
 import com.grow_site.grow_site.DTO.member.MemberSaveForm;
 import com.grow_site.grow_site.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -80,6 +81,16 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/members/login")
+    public String showLogin(Model model){
+
+        model.addAttribute("memberLoginForm",new MemberLoginForm());
+
+        return "user/member/login";
+    }
+
+
 }
 
 

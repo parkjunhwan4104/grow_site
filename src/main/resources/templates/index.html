@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout}">
+      layout:decorate="~{layouts/layout}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -12,14 +13,22 @@
             width: 200%;
             height: 765px;
 
-
         }
 
-        .show{
+	.show{
 
-            width:1920px;
-            height:765px;
-        }
+		width:1920px;
+		height:765px;
+
+	}
+
+	.drop{
+	    position:absolute;
+	    top:2.5px;
+	    right:150px;
+
+	}
+
 
 
 
@@ -28,14 +37,35 @@
 <body>
 <div layout:fragment="content">
 
-    <div class="container  " >
+    <div class="container" >
 
         <div class="contents">
+            <li class="drop pt-4" sec:authorize="isAuthenticated()">
+                <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" th:text="${member.nickName}" type="button">님<svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
 
-            <div id="default-carousel" data-carousel="slide" class="relative">
+                <!-- Dropdown menu -->
+                <div id="dropdownInformation" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-1" aria-labelledby="dropdownInformationButton">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{~/adm/page}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">관리자 페이지</a>
+                        </li>
+                        <li sec:authorize="hasRole('ROLE_MEMBER')">
+                            <a th:href="@{~/mypage/} + ${#authentication.name}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">마이 페이지</a>
+                        </li>
+                        <li>
+                            <a th:href="@{~/members/modify/} + ${#authentication.name}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">회원정보 수정</a>
+                        </li>
+                    </ul>
+                    <div class="py-1">
+                        <a href="/members/logout" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">로그아웃</a>
+                    </div>
+                </div>
+            </li>
+
+<!--            <div id="default-carousel" data-carousel="slide" class="relative">
 
 
-                <div class="overflow-hidden relative c-item " >
+                <div class="c-item  overflow-hidden relative" >
 
 
                     <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
@@ -44,16 +74,16 @@
 
 
                     <div class="hidden duration-700 ease-in-out" data-carousel-item="">
-                        <img src="https://www.foyles.co.uk/cms-uploaded/Tobbie%20the%20Robot%20Insert.jpg" class="show block absolute " alt="...">
+                        <img src="https://www.foyles.co.uk/cms-uploaded/Tobbie%20the%20Robot%20Insert.jpg" class="show block absolute" alt="...">
                     </div>
 
                     <div class="hidden duration-700 ease-in-out" data-carousel-item="">
-                        <img src="https://elearningindustry.com/wp-content/uploads/2017/09/wearable-technology-in-elearning-3-wearables-potential.jpg"   class="show block absolute " alt="...">
+                        <img src="https://elearningindustry.com/wp-content/uploads/2017/09/wearable-technology-in-elearning-3-wearables-potential.jpg" class="show block absolute" alt="...">
                     </div>
 
 
                     <div class="hidden duration-700 ease-in-out" data-carousel-item="">
-                        <img src="https://store.hp.com/app/assets/images/uploads/prod/video-game-genres1597871118726439.jpg?impolicy=prdimg&imdensity=1&imwidth=1000" class="show block absolute " alt="...">
+                        <img src="https://store.hp.com/app/assets/images/uploads/prod/video-game-genres1597871118726439.jpg?impolicy=prdimg&imdensity=1&imwidth=1000"  class="show block absolute" alt="...">
                     </div>
 
 
@@ -82,7 +112,7 @@
         </span>
                 </button>
             </div>
-
+-->
         </div>
     </div>
 

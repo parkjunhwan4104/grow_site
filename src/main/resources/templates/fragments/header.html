@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@1.24.3/dist/full.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
 </head>
@@ -193,87 +192,60 @@ label[for] {
 
 
     </style>
-    <div class="top_bar ">
-        <div class="con height-100p flex flex-jc-sb ">
-            <a class="logo flex flex-ai-c" th:href="@{/}">
 
-                <span class="text-4xl ">GROW</span>
-            </a>
 
-            <nav class="menu_bar ">
-                <div class="bg"></div>
-                <ul class="flex  height-100p  ">
-                    <li  >
-                        <a  class="flex flex-ai-c height-100p " href="#">공지사항</a>
+        <nav class="top_bar ">
+            <ul class="con height-100p flex flex-jc-sb ">
+                <a class="logo flex flex-ai-c" th:href="@{/}">
 
+                    <span class="text-4xl ">GROW</span>
+                </a>
+
+                <ul class="menu_bar ">
+                        <div class="bg"></div>
+                        <ul class="flex  height-100p  ">
+                            <li  >
+                                <a  class="flex flex-ai-c height-100p " href="#">공지사항</a>
+
+                            </li>
+                            <li  >
+                                <a class="flex flex-ai-c height-100p" href="#">GAME</a>
+
+                            </li>
+                            <li  >
+                                <a class="flex flex-ai-c height-100p " href="#">ROBOT</a>
+
+                            </li>
+                            <li >
+                                <a class="flex flex-ai-c height-100p " href="#">WEARALBE</a>
+
+                            </li>
+                            <li >
+                                <a class="flex flex-ai-c height-100p  " href="#">시험자료</a>
+
+                            </li>
+
+
+
+                        </ul>
+
+                </ul>
+                <ul class="last_ele flex">
+                    <li class="flex flex-ai-c height-100p" sec:authorize="isAnonymous()">
+
+                        <a class="mr-4" th:href="@{~/members/login}">로그인</a>
+                        <a th:href="@{~/members/join}">회원가입</a>
                     </li>
-                    <li  >
-                        <a class="flex flex-ai-c height-100p" href="#">GAME</a>
-
-                    </li>
-                    <li  >
-                        <a class="flex flex-ai-c height-100p " href="#">ROBOT</a>
-
-                    </li>
-                    <li >
-                        <a class="flex flex-ai-c height-100p " href="#">WEARALBE</a>
-
-                    </li>
-                    <li >
-                        <a class="flex flex-ai-c height-100p  " href="#">시험자료</a>
-
-                    </li>
-
 
 
                 </ul>
 
 
-            </nav>
 
+                </ul>
 
-            <div class="last_ele flex " sec:authorize="isAnonymous()">
-                <li class="">
-                    <a class="flex flex-ai-c height-100p  " href="#">로그인</a>
-
-
-
-
-                </li>
-
-                <li>
-                    <a class="flex flex-ai-c height-100p " th:href="@{~/members/join}">회원가입</a>
-
-                </li>
-
-            </div>
-
-            <div class="" sec:authorize="isAuthenticated()">
-                <div class="dropdown dropdown-end">
-                    <div tabindex="0" class="m-1 btn" sec:authentication="principal.username" type="button">님</div>
-                    <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                        <li sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a th:href="@{~/admin/page}">관리자 페이지</a>
-                        </li>
-
-                        <li>
-                            <a href="/articles/write/">게시글 작성</a>
-                        </li>
-                        <li>
-                            <a href="/members/modify/">회원 정보 수정</a>
-                        </li>
-                        <li>
-                            <a href="/members/logout/">로그아웃</a>
-                        </li>
-                    </ul>
-                </div>
-
-
-            </div>
-        </div>
-
-
-    </div>
+            </ul>
+        </nav>
 
 
 

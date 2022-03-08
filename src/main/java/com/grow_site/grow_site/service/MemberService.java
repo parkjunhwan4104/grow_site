@@ -1,6 +1,7 @@
 package com.grow_site.grow_site.service;
 
 import com.grow_site.grow_site.Config.Role;
+import com.grow_site.grow_site.DTO.member.MemberLoginForm;
 import com.grow_site.grow_site.DTO.member.MemberSaveForm;
 import com.grow_site.grow_site.Dao.MemberRepository;
 import com.grow_site.grow_site.domain.Member;
@@ -24,11 +25,16 @@ public class MemberService implements UserDetailsService {
     private Member member;
 
 
-
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return memberRepository.findByLoginId(userName).get();
+
+
+
+
+           return memberRepository.findByLoginId(userName).get();
+
     }
+
 
 
     public void isDuplicateMember(String loginId, String nickname,String email){
@@ -56,7 +62,7 @@ public class MemberService implements UserDetailsService {
         );
 
 
-        System.out.println(memberSaveForm.getLoginId());
+
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         Member member= Member.createMember(
                 memberSaveForm.getLoginId(),
@@ -70,6 +76,10 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
 
     }
+
+
+
+
 
     public Member findByLoginId(String loginId) throws IllegalStateException{
         Optional<Member> memberOption=memberRepository.findByLoginId(loginId);
@@ -96,6 +106,8 @@ public class MemberService implements UserDetailsService {
     public boolean isDupleEmail(String email){
         return memberRepository.existsByEmail(email);
     }
+
+
 }
 
 

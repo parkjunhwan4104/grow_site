@@ -20,26 +20,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests(authorize ->authorize
 
 
 
-                .mvcMatchers("/","/members/join","/members/login","/members/check/**").anonymous() //URL이 간소화될수있도록함,  회원가입하는 url, 어나니머스는 로그인이 되지 않은 사람도 해당 페이지를 들어갈수 있도록함
+                .mvcMatchers("/members/join","/members/login","/members/check/**").anonymous() //URL이 간소화될수있도록함,  회원가입하는 url, 어나니머스는 로그인이 되지 않은 사람도 해당 페이지를 들어갈수 있도록함
 
-                .mvcMatchers("/aritcles/**").permitAll() // 로그인한 사람만 게시글에 대한 기능을 사용할 수 있도록 하는거
+                .mvcMatchers("/","/aritcles/**").permitAll() // 로그인한 사람만 게시글에 대한 기능을 사용할 수 있도록 하는거
 
                 .anyRequest()
                 .denyAll() //위의 3개 페이지말고는 모두 다 거절해라
         )
                 .formLogin()
                     .loginPage("/members/login")
-                    .loginProcessingUrl("/doLogin")   //로그인이 이루어지는 페이지
+                    .loginProcessingUrl("/members/doLogin")   //로그인이 이루어지는 페이지
                     .usernameParameter("loginId")
                     .passwordParameter("loginPw")
+
                     .defaultSuccessUrl("/")         //로그인 성공후에 인덱스 페이지로 보내줌
                 .and()
                 .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout/"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true)
                     .deleteCookies("JSESSIONID")
