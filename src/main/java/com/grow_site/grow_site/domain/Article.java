@@ -1,0 +1,43 @@
+package com.grow_site.grow_site.domain;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@NoArgsConstructor(access= AccessLevel.PROTECTED)
+public class Article {
+
+    @Id
+    @Column(name="article_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String title;
+
+    private String body;
+
+    private LocalDateTime regDate=LocalDateTime.now();
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="board_id")
+    private Board board;
+
+    public static Article createArticle(String title,String body){
+        Article article=new Article();
+        article.title=title;
+        article.body=body;
+
+        return article;
+
+    }
+}

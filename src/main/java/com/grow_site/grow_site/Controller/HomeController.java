@@ -17,15 +17,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final MemberService memberService;
+
 
     @GetMapping("/")
-    public String showIndexPage(Model model,Principal principal){
-        if(principal!=null){
+    public String showIndexPage(){
 
-            Member member=memberService.findByLoginId(principal.getName());
-            model.addAttribute("member",member);
-        }
 
 
         return "index";

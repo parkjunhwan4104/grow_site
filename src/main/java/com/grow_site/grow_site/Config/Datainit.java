@@ -45,6 +45,7 @@ public class Datainit {
               bCryptPasswordEncoder.encode("admin"),
               "201902695 박준환",
               "wnsghks4104@gmail.com",
+              true,
               Role.ADMIN
 
             );

@@ -31,23 +31,29 @@ public class Member implements UserDetails {
     private String nickName;
     private String email;
 
+    private boolean isMember;
+
     private LocalDateTime regDate=LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private Role authority;
+
+    @OneToMany(mappedBy ="member",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)  //게시판 입장에서는 여러개의 게시물과 연관되어 있으므로 oneToMany 어노테이션을 사용하고  mappedBy를 통해 게시물이 게시판과 연관이 있음을 알려줌
+    private List<Article> articles=new ArrayList<>();
 
     private boolean isAccountNonExpired= true;
     private boolean isAccountNonLocked=true;
     private boolean isCredentialsNonExpired=true;
     private boolean isEnabled=true;
 
-    public static Member createMember(String loginId,String loginPw,String nickName,String email,Role authority){
+    public static Member createMember(String loginId,String loginPw,String nickName,String email,boolean isMember,Role authority){
 
         Member member=new Member();
         member.loginId=loginId;
         member.loginPw=loginPw;
         member.nickName=nickName;
         member.email=email;
+        member.isMember=isMember;
         member.authority=authority;
 
         return member;

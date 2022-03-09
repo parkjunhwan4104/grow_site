@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +26,9 @@ public class Board {
     @OneToOne(fetch=FetchType.LAZY)  //게시판을 생성한 사람과 게시판은 일대일 대응관계
     @JoinColumn(name="member_id")
     private Member member;   //보드에서 회원을 참조함 회원이 보드를 참조하지 않음
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<Article> articles=new ArrayList<>();
 
     public static Board createBoard(String name,Member member){
         Board board=new Board();
