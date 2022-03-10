@@ -40,4 +40,18 @@ public class Article {
         return article;
 
     }
+
+    public void setMember(Member member){
+        this.member=member;
+        member.getArticles().add(this);
+    }
+
+    public void setBoard(Board board){
+        this.board=board;
+        board.getArticles().add(this);
+
+    }
+
+
+
 }

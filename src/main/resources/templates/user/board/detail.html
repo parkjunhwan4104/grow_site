@@ -11,6 +11,11 @@
         <div class="">
             <span th:text="${board.name}"></span>
 
+            <a th:href="@{~/boards/}+${board.id}+@{/articles/add}">
+
+                <span>게시글 작성</span>
+            </a>
+
         </div>
 
 </div>

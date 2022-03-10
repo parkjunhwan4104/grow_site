@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping("/boards/{name}")
-    public String showBoardDetail(@PathVariable(name="name")String name, Model model){
+    @GetMapping("/boards/{id}")
+    public String showBoardDetail(@PathVariable(name="id")Long id, Model model){
         try {
-            Board findBoard = boardService.getBoard(name);
+            Board findBoard = boardService.getBoard(id);
 
             model.addAttribute("board", findBoard);
             return "user/board/detail";

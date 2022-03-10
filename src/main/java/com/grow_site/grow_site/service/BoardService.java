@@ -17,9 +17,9 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public Board getBoard(String name){
+    public Board getBoard(Long id){
 
-        Optional<Board> boardOptional = boardRepository.findByName(name);
+        Optional<Board> boardOptional = boardRepository.findById(id);
         boardOptional.orElseThrow(
 
                 ()-> new NoSuchElementException("해당 게시판은 존재하지 않습니다.")
