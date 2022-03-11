@@ -5,19 +5,85 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 세부정보</title>
+    <style>
+
+        .write_bar{
+
+            position:absolute;
+            right:5%;
+            top:15%;
+        }
+
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
-        <div class="">
-            <span th:text="${board.name}"></span>
+    <div class="container mx-auto">
+        <nav class="flex mt-8" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
 
-            <a th:href="@{~/boards/}+${board.id}+@{/articles/add}">
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                        <span class="ml-1 text-xl font-medium text-gray-400 md:ml-2 dark:text-gray-500" th:text="${board.name}"></span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+        <div class="content mt-8">
+            <div class="flex flex-col">
+                <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                    <div class="inline-block min-w-full align-middle dark:bg-gray-800">
 
-                <span>게시글 작성</span>
-            </a>
+
+                        <div class="write_bar">
+                            <a th:href="@{~/boards/}+${board.id}+@{/articles/add}">
+                                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm  px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">게시글 작성</button>
+
+                            </a>
+
+                        </div>
+
+                        <div class="overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                                <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="py-3 px-6 text-xl font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                        게시글 번호
+                                    </th>
+                                    <th scope="col" class="py-3 px-6 text-xl font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                        게시글 제목
+                                    </th>
+                                    <th scope="col" class="py-3 px-6 text-xl font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                        게시글 작성자
+                                    </th>
+                                    <th scope="col" class="py-3 px-6 text-xl font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                        게시글 작성일
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+
+                                    <tr th:each="article : ${articleList}" class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <td class="py-4 px-6 text-lg font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${article.id}">번호</td>
+                                        <td class="py-4 px-6 text-lg font-medium text-gray-500 whitespace-nowrap dark:text-white">
+                                            <a th:href="@{~/articles/} + ${article.id}">
+                                                <span th:text="${article.title}"></span>
+                                            </a>
+                                        </td>
+                                        <td class="py-4 px-6 text-lg font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${article.memberNickName}">작성자</td>
+                                        <td class="py-4 px-6 text-lg font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${#temporals.format(article.regDate, 'yyyy-MM-dd')}">작성일</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
-
+    </div>
 </div>
 </body>
 </html>

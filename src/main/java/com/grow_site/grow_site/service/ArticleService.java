@@ -1,6 +1,7 @@
 package com.grow_site.grow_site.service;
 
 import com.grow_site.grow_site.DTO.article.ArticleDTO;
+import com.grow_site.grow_site.DTO.article.ArticleListDTO;
 import com.grow_site.grow_site.DTO.article.ArticleSaveForm;
 import com.grow_site.grow_site.Dao.ArticleRepository;
 import com.grow_site.grow_site.domain.Article;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -38,7 +41,7 @@ public class ArticleService {
 
 
     }
-    /*
+
     public Optional<Article> findById(Long id){
             return articleRepository.findById(id);
 
@@ -67,6 +70,21 @@ public class ArticleService {
     }
 
 
-    */
+    public List<ArticleListDTO> getArticleListByBoardId(Long id){
+        List<Article> articleList=articleRepository.findAll();
+        List<ArticleListDTO> articleListDTOList=new ArrayList<>();
+        for(Article article:articleList){
+            if(article.getBoard().getId()==id){
+                ArticleListDTO articleListDTO=new ArticleListDTO(article);
+                articleListDTOList.add(articleListDTO);
+            }
+        }
+        return articleListDTOList;
+
+    }
+
+
+
+
 
 }

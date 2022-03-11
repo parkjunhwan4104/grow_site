@@ -2,6 +2,7 @@ package com.grow_site.grow_site.Controller;
 
 
 import com.grow_site.grow_site.DTO.article.ArticleDTO;
+import com.grow_site.grow_site.DTO.article.ArticleListDTO;
 import com.grow_site.grow_site.DTO.article.ArticleSaveForm;
 import com.grow_site.grow_site.domain.Article;
 import com.grow_site.grow_site.domain.Board;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -65,8 +67,11 @@ public class ArticleController {
             model.addAttribute("error_msg",e.getMessage());
             return "user/article/add";
         }
-        return "redirect:/";
+        return "redirect:/boards/"+id;
     }
+
+
+
 
 
 
