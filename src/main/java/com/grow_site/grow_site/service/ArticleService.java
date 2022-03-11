@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ArticleService {
-    /*
+
     private final ArticleRepository articleRepository;
 
 
@@ -38,7 +38,7 @@ public class ArticleService {
 
 
     }
-
+    /*
     public Optional<Article> findById(Long id){
             return articleRepository.findById(id);
 
@@ -66,7 +66,7 @@ public class ArticleService {
 
     }
 
- */
 
+    */
 
 }

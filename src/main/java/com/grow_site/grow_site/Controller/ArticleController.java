@@ -23,7 +23,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class ArticleController {
-    /*
+
     private final ArticleService articleService;
     private final BoardService boardService;
     private final MemberService memberService;
@@ -70,5 +70,5 @@ public class ArticleController {
 
 
 
-*/
+
 }
