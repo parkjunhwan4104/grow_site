@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class ArticleDTO {
-
+    /*
     private Long id;
     private String title;
     private String body;
@@ -33,5 +33,5 @@ public class ArticleDTO {
 
 
     }
-
+    */
 }
