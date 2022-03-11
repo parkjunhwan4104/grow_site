@@ -35,8 +35,7 @@ public class Datainit {
     static class InitService{
 
         private final MemberRepository memberRepository;
-        private final BoardRepository boardRepository
-                ;
+        private final BoardRepository boardRepository;
         public void initAdmin(){
 
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
@@ -45,7 +44,7 @@ public class Datainit {
               bCryptPasswordEncoder.encode("admin"),
               "201902695 박준환",
               "wnsghks4104@gmail.com",
-              true,
+
               Role.ADMIN
 
             );

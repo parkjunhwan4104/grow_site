@@ -31,7 +31,7 @@ public class Member implements UserDetails {
     private String nickName;
     private String email;
 
-    private boolean isMember;
+
 
     private LocalDateTime regDate=LocalDateTime.now();
 
@@ -46,14 +46,14 @@ public class Member implements UserDetails {
     private boolean isCredentialsNonExpired=true;
     private boolean isEnabled=true;
 
-    public static Member createMember(String loginId,String loginPw,String nickName,String email,boolean isMember,Role authority){
+    public static Member createMember(String loginId,String loginPw,String nickName,String email,Role authority){
 
         Member member=new Member();
         member.loginId=loginId;
         member.loginPw=loginPw;
         member.nickName=nickName;
         member.email=email;
-        member.isMember=isMember;
+
         member.authority=authority;
 
         return member;

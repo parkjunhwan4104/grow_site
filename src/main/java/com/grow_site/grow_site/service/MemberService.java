@@ -69,7 +69,7 @@ public class MemberService implements UserDetailsService {
                 bCryptPasswordEncoder.encode(memberSaveForm.getLoginPw()),
                 memberSaveForm.getNickName(),
                 memberSaveForm.getEmail(),
-                false,
+
                 Role.GUEST
 
 
