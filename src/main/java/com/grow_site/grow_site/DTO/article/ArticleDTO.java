@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 
 @Data
 public class ArticleDTO {
-    /*
+
     private Long id;
     private String title;
     private String body;
     private LocalDateTime regDate;
 
-    private String memberLoginId;
     private String memberNickName;
+    private String memberLoginId;
 
     private Long boardId;
     private String boardName;
@@ -26,12 +26,11 @@ public class ArticleDTO {
         this.title= article.getTitle();
         this.body=article.getBody();
         this.regDate=article.getRegDate();
-        this.memberLoginId=article.getMember().getLoginId();
         this.memberNickName=article.getMember().getNickName();
+        this.memberLoginId=article.getMember().getLoginId();
         this.boardId=article.getBoard().getId();
         this.boardName=article.getBoard().getName();
 
-
     }
-    */
+
 }

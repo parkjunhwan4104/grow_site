@@ -41,7 +41,7 @@ public class ArticleService {
 
 
     }
-    /*
+
     public Optional<Article> findById(Long id){
             return articleRepository.findById(id);
 
@@ -69,7 +69,7 @@ public class ArticleService {
 
     }
 
-    */
+
     public List<ArticleListDTO> getArticleListByBoardId(Long id){
         List<Article> articleList=articleRepository.findAll();
         List<ArticleListDTO> articleListDTOList=new ArrayList<>();

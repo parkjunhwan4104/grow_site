@@ -70,6 +70,18 @@ public class ArticleController {
         return "redirect:/boards/"+id;
     }
 
+    @GetMapping("/articles/{id}")
+    public String showArticleDetail(@PathVariable(name="id")Long id,Model model){
+
+        ArticleDTO articleDTO= articleService.getArticleById(id);
+        model.addAttribute("articleDTO",articleDTO);
+
+        return "user/article/detail";
+
+    }
+
+
+
 
 
 
