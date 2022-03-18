@@ -21,6 +21,8 @@ public class ArticleDTO {
     private Long boardId;
     private String boardName;
 
+    private Long fileId;
+
     public ArticleDTO(Article article){
         this.id=article.getId();
         this.title= article.getTitle();
@@ -30,6 +32,7 @@ public class ArticleDTO {
         this.memberLoginId=article.getMember().getLoginId();
         this.boardId=article.getBoard().getId();
         this.boardName=article.getBoard().getName();
+
 
     }
 

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세보기</title>
+    <link rel='stylesheet' href='/webjars/bootstrap/4.5.0/css/bootstrap.min.css'>
 
 </head>
 <body>
@@ -64,6 +65,18 @@
 
 
             </div>
+
+            <div class="">
+                <th:block th:each="file:${listFile}">
+                    <a th:href="@{~/download/}+${file.id}">
+                        <span th:text="${file.name}"></span>
+                    </a>
+                </th:block>
+
+
+            </div>
+
+
         </div>
 
     </div>
@@ -71,5 +84,6 @@
 
 
 </div>
+
 </body>
 </html>

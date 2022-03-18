@@ -22,6 +22,8 @@ public class Article {
 
     private String body;
 
+
+
     private LocalDateTime regDate=LocalDateTime.now();
 
     @ManyToOne(fetch=FetchType.LAZY)
@@ -51,6 +53,7 @@ public class Article {
         board.getArticles().add(this);
 
     }
+
 
 
 

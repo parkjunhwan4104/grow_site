@@ -35,6 +35,7 @@ public class ArticleService {
         article.setMember(member);
         article.setBoard(board);
 
+
         articleRepository.save(article);  //entity를 db안에 저장
 
 
