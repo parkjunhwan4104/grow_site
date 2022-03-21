@@ -59,6 +59,7 @@ public class ArticleController {
 
 
         Board board=boardService.getBoard(id);
+        List<File> fileList=new ArrayList<>();
         String fileName= StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
         if(bindingResult.hasErrors()){
@@ -78,8 +79,15 @@ public class ArticleController {
             file.setUploadTime(new Date());
             fileService.save(file);
 
+            fileList.add(file);
+
+
+
             Member member=memberService.getMember(principal.getName());
-            articleService.save(articleSaveForm,member,board);
+            articleService.save(articleSaveForm,member,board,fileList);
+
+
+
 
         }
         catch(IllegalStateException e){
@@ -92,7 +100,10 @@ public class ArticleController {
     @GetMapping("/articles/{id}")
     public String showArticleDetail(@PathVariable(name="id")Long id,Model model)throws IllegalStateException, IOException{
 
-        List<File> listFile=fileService.findByAll();
+
+
+
+        List<File> listFile=fileService.getFileListByArticleId(id);
         ArticleDTO articleDTO= articleService.getArticleById(id);
         model.addAttribute("articleDTO",articleDTO);
         model.addAttribute("listFile",listFile);
@@ -110,6 +121,8 @@ public class ArticleController {
        }
 
        File file=result.get();
+
+
        response.setContentType("application/octet-stream");
        String headerKey="Content-Disposition";
        String headerValue="attachment; filename=" +file.getName();

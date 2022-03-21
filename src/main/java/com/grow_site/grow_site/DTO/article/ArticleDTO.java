@@ -21,7 +21,7 @@ public class ArticleDTO {
     private Long boardId;
     private String boardName;
 
-    private Long fileId;
+
 
     public ArticleDTO(Article article){
         this.id=article.getId();

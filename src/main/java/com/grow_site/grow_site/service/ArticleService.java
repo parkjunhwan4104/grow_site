@@ -4,8 +4,10 @@ import com.grow_site.grow_site.DTO.article.ArticleDTO;
 import com.grow_site.grow_site.DTO.article.ArticleListDTO;
 import com.grow_site.grow_site.DTO.article.ArticleSaveForm;
 import com.grow_site.grow_site.Dao.ArticleRepository;
+import com.grow_site.grow_site.Dao.FileRepository;
 import com.grow_site.grow_site.domain.Article;
 import com.grow_site.grow_site.domain.Board;
+import com.grow_site.grow_site.domain.File;
 import com.grow_site.grow_site.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,23 +24,29 @@ import java.util.Optional;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final FileRepository fileRepository;
 
 
 
     @Transactional
-    public void save(ArticleSaveForm articleSaveForm, Member member, Board board) throws IllegalStateException{
+    public void save(ArticleSaveForm articleSaveForm, Member member, Board board,List<File> files) throws IllegalStateException{
         Article article= Article.createArticle(
                 articleSaveForm.getTitle(),
                 articleSaveForm.getBody()
 
         );
+
+
+
         article.setMember(member);
         article.setBoard(board);
 
 
         articleRepository.save(article);  //entity를 db안에 저장
 
-
+        for(File file:files){
+            file.setArticle(article);
+        }
 
 
     }
@@ -83,6 +91,9 @@ public class ArticleService {
         return articleListDTOList;
 
     }
+
+
+
 
 
 

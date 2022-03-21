@@ -18,13 +18,16 @@ public class File {
     @Column(length=512,nullable = false,unique=true)
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="article_id")
+    private Article article;
 
     private Long size;
 
     @Column(name="upload_time")
     private Date uploadTime;
 
-    @Column(columnDefinition="BLOB")
+    @Column(columnDefinition="LONGBLOB")
     private byte[] content;
 
     public File(Long id, String name, Long size){
@@ -32,6 +35,14 @@ public class File {
         this.id=id;
         this.name=name;
         this.size=size;
+    }
+
+
+
+
+    public void setArticle(Article article){
+        this.article=article;
+
     }
 
 }

@@ -68,7 +68,7 @@
                                         <td class="py-4 px-6 text-lg font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${article.id}">번호</td>
                                         <td class="py-4 px-6 text-lg font-medium text-gray-500 whitespace-nowrap dark:text-white">
                                             <a th:href="@{~/articles/} + ${article.id}">
-                                                <span class="font-bold" th:text="${article.title}"></span>
+                                                <span class="font-bold underline" th:text="${article.title}"></span>
                                             </a>
                                         </td>
                                         <td class="py-4 px-6 text-lg font-medium text-gray-900 whitespace-nowrap dark:text-white" th:text="${article.memberNickName}">작성자</td>

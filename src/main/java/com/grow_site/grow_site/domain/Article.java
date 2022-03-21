@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,9 +22,11 @@ public class Article {
 
     private String title;
 
+    @Column(columnDefinition="MEDIUMTEXT")
     private String body;
 
-
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    private List<File> files=new ArrayList<>();
 
     private LocalDateTime regDate=LocalDateTime.now();
 
@@ -38,6 +42,7 @@ public class Article {
         Article article=new Article();
         article.title=title;
         article.body=body;
+
 
         return article;
 

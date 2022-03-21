@@ -30,6 +30,7 @@ public class Board {
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<Article> articles=new ArrayList<>();
 
+
     public static Board createBoard(String name,Member member){
         Board board=new Board();
         board.name=name;

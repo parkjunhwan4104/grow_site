@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface FileRepository extends JpaRepository<File,Long> {
 
-    @Query("SELECT new File(d.id,d.name,d.size) FROM File d ORDER BY d.uploadTime ")
-    List<File> findAll();
+
 
 }
