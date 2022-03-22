@@ -6,7 +6,24 @@
     <meta charset="UTF-8">
     <title>게시글 작성</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/">
+    <script>
+        function addNewLines(){
+            text=document.getElementById('message').value;
+
+            text=text.replace(/\n/g,'\n');
+            document.getElementById('message').value=text;
+
+            return false;
+
+        }
+
+
+
+</script>
+
 </head>
+
+
 <body>
 <div layout:fragment="content">
 
@@ -42,7 +59,7 @@
 
             <div class="form-container border border-grey-400 shadow-sm rounded-md">
 
-                <form action="" th:action="@{~/boards/} + ${boardId} + @{/articles/add}" th:object="${ArticleSaveForm}" method="POST" class="p-12" enctype="multipart/form-data" >
+                <form action="" th:action="@{~/boards/} + ${boardId} + @{/articles/add}" th:object="${ArticleSaveForm}" method="POST" onsubmit='addNewLines();' class="p-12" enctype="multipart/form-data" >
                     <input type="hidden" th:value="${boardId}" name="board_id">
 
                     <div class="form-item">
@@ -83,6 +100,8 @@
 
                 </form>
 
+
+
             </div>
 
         </div>
@@ -90,4 +109,6 @@
     </div>
 </div>
 </body>
+
+
 </html>

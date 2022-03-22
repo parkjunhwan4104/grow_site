@@ -4,8 +4,18 @@
       layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
     <title>게시글 상세보기</title>
     <link rel='stylesheet' href='/webjars/bootstrap/4.5.0/css/bootstrap.min.css'>
+    <!-- 토스트 UI 에디터, 자바스크립트 코어 -->
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+
 
     <style>
 
@@ -15,8 +25,10 @@
         }
     </style>
 
+
 </head>
 <body>
+
 <div layout:fragment="content">
 
     <div class="container mx-auto">
@@ -65,7 +77,9 @@
 
                 <div class="body-content ml-24">
 
-                    <p  th:text="${articleDTO.body}"></p>
+
+
+                    <div id="editor" ></div>
 
                 </div>
 
@@ -74,6 +88,26 @@
 
             </div>
 
+            <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+
+            <script>
+
+                function EditorViewer1__init() {
+                    var viewer = new toastui.Editor.factory({
+                    el: document.querySelector('#editor'),
+                    initialValue: `[[${body}]]`,
+                    viewer:true
+                });
+
+
+
+
+                }
+
+                 EditorViewer1__init();
+
+</script>
 
 
 
@@ -97,4 +131,5 @@
 </div>
 
 </body>
+
 </html>

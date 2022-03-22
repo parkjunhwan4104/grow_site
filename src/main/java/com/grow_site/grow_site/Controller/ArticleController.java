@@ -105,7 +105,10 @@ public class ArticleController {
 
         List<File> listFile=fileService.getFileListByArticleId(id);
         ArticleDTO articleDTO= articleService.getArticleById(id);
+        String body=articleDTO.getBody();
+
         model.addAttribute("articleDTO",articleDTO);
+        model.addAttribute("body",body);
         model.addAttribute("listFile",listFile);
 
         return "user/article/detail";

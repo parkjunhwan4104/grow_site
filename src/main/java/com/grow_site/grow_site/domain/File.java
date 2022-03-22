@@ -1,6 +1,11 @@
 package com.grow_site.grow_site.domain;
 
-import lombok.*;
+
+
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +20,7 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length=512,nullable = false,unique=true)
+    @Column(length=512)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
