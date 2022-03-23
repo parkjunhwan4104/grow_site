@@ -2,7 +2,9 @@ package com.grow_site.grow_site.Controller;
 
 import com.grow_site.grow_site.DTO.member.CheckStatus;
 import com.grow_site.grow_site.DTO.member.MemberLoginForm;
+import com.grow_site.grow_site.DTO.member.MemberModifyForm;
 import com.grow_site.grow_site.DTO.member.MemberSaveForm;
+import com.grow_site.grow_site.domain.Member;
 import com.grow_site.grow_site.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -93,6 +95,51 @@ public class MemberController {
     @GetMapping("/error/deny")
     public String showError(){
         return "error/deny";
+    }
+
+    @GetMapping("/members/modify/{loginId}")
+    public String showModify(@PathVariable(name="loginId")String loginId,Principal principal,Model model){
+
+        Member findMember=memberService.findByLoginId(loginId);
+        if(!findMember.getLoginId().equals(principal.getName())){
+                return "redirect:/";
+        }
+
+        String LoginId=findMember.getLoginId();
+
+        MemberModifyForm memberModifyForm=new MemberModifyForm(findMember);
+        model.addAttribute("loginId",LoginId);
+        model.addAttribute("memberModifyForm",memberModifyForm);
+
+
+        return "user/member/modify";
+    }
+
+    @PostMapping("/members/modify/{loginId}")
+    public String doModify(@PathVariable(name="loginId")String loginId,@Validated MemberModifyForm memberModifyForm,BindingResult bindingResult,Principal principal,Model model){
+
+            if(bindingResult.hasErrors()){
+                return "user/member/modify";
+            }
+
+            Member member=memberService.findByLoginId(loginId);
+            if(!member.getLoginId().equals(principal.getName())){
+                return "redirect:/";
+
+            }
+
+            try {
+                memberService.modifyMember(memberModifyForm, loginId);
+            }
+            catch(Exception e){
+                model.addAttribute("err_msg",e.getMessage());
+                model.addAttribute("memberModifyForm",new MemberModifyForm(
+                        member
+                ));
+                return "user/member/modify";
+            }
+
+            return "redirect:/";
     }
 
 

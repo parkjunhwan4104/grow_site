@@ -2,7 +2,9 @@ package com.grow_site.grow_site.Controller;
 
 
 import com.grow_site.grow_site.DTO.article.ArticleDTO;
+import com.grow_site.grow_site.DTO.article.ArticleModifyForm;
 import com.grow_site.grow_site.DTO.article.ArticleSaveForm;
+import com.grow_site.grow_site.domain.Article;
 import com.grow_site.grow_site.domain.Board;
 import com.grow_site.grow_site.domain.File;
 import com.grow_site.grow_site.domain.Member;
@@ -11,6 +13,7 @@ import com.grow_site.grow_site.service.BoardService;
 import com.grow_site.grow_site.service.FileService;
 import com.grow_site.grow_site.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -105,10 +108,12 @@ public class ArticleController {
 
         List<File> listFile=fileService.getFileListByArticleId(id);
         ArticleDTO articleDTO= articleService.getArticleById(id);
+
         String body=articleDTO.getBody();
 
         model.addAttribute("articleDTO",articleDTO);
         model.addAttribute("body",body);
+
         model.addAttribute("listFile",listFile);
 
         return "user/article/detail";
@@ -135,6 +140,76 @@ public class ArticleController {
        ServletOutputStream outputStream=response.getOutputStream();
        outputStream.write(file.getContent());
        outputStream.close();
+
+   }
+
+   @GetMapping("/articles/{id}/modify")
+   public String showModify(@PathVariable(name="id")Long id,Model model){
+
+        List<File> fileList=fileService.getFileListByArticleId(id);
+
+        Article findArticle=articleService.getById(id);
+       ArticleModifyForm articleModifyForm=new ArticleModifyForm(findArticle);
+       Long Id= findArticle.getId();;
+
+       model.addAttribute("fileList",fileList);
+       model.addAttribute("id",Id);
+       model.addAttribute("articleModifyForm",articleModifyForm);
+
+
+
+        return "user/article/modify";
+   }
+
+   @PostMapping("/articles/{id}/modify")
+    public String doModify(@Validated ArticleModifyForm articleModifyForm,BindingResult bindingResult,@PathVariable(name="id")Long id,Model model,@RequestParam("file") MultipartFile multipartFile){
+
+        List<File> listFile=fileService.getFileListByArticleId(id);
+        Article findArticle=articleService.getById(id);
+        if(bindingResult.hasErrors()){
+            return "user/article/modify";
+        }
+        try{
+            String fileName= StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+
+            File file=new File();
+            file.setName(fileName);
+            file.setContent(multipartFile.getBytes());
+            file.setSize(multipartFile.getSize());
+            file.setUploadTime(new Date());
+            fileService.save(file);
+
+            listFile.add(file);
+
+            articleService.modifyArticle(articleModifyForm,id,listFile);
+
+        }
+        catch(Exception e){
+            model.addAttribute("e_msg",e.getMessage());
+            model.addAttribute("articleModifyForm",new ArticleModifyForm(findArticle));
+        }
+
+        return "redirect:/articles/"+id;
+   }
+
+   @GetMapping("/articles/{id}/delete")
+    public String deleteArticle(@PathVariable(name="id")Long id){
+
+       ArticleDTO articleDTO= articleService.getArticleById(id);
+        try{
+
+
+            articleService.deleteArticle(id);
+        }
+        catch (Exception e){
+            return "redirect:/";
+        }
+
+        return "redirect:/boards/"+articleDTO.getBoardId();
+
+
+
 
    }
 

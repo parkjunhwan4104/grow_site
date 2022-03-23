@@ -19,10 +19,14 @@
 
     <style>
 
-        .files{
+
+        .btn{
             position:absolute;
             bottom:7%;
+            right:4%;
+
         }
+
     </style>
 
 
@@ -73,6 +77,19 @@
 
             <hr class="my-4">
 
+            <div th:if="${#authentication.name.equals(articleDTO.memberLoginId)}" class="btn-container flex justify-end">
+
+                <a th:href="@{~/articles/} + ${articleDTO.id}+@{/modify}" class="mx-2">
+                    <button type="button" class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">수정</button>
+                </a>
+
+                <a th:href="@{~/articles/} + ${articleDTO.id}+@{/delete}" class="mx-2">
+                    <button type="button" class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">삭제</button>
+                </a>
+
+            </div>
+
+
             <div class="body-container">
 
                 <div class="body-content ml-24">
@@ -82,6 +99,21 @@
                     <div id="editor" ></div>
 
                 </div>
+
+                <div class="files" >
+                    <span class="ml-4 ">파일: </span>
+
+                    <th:block th:each="file:${listFile}">
+                        <a class="underline"  th:href="@{~/download/}+${file.id}">
+                            <span th:text="${file.name}"></span>
+                        </a>
+                        <span>,</span>
+                    </th:block>
+
+
+                </div>
+
+
 
 
 
@@ -113,18 +145,22 @@
 
         </div>
 
-    </div>
-    <div class="files" >
-        <span class="ml-4">파일: </span>
-
-        <th:block th:each="file:${listFile}">
-            <a class="underline"  th:href="@{~/download/}+${file.id}">
-                <span th:text="${file.name}"></span>
-            </a>
-        </th:block>
 
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -96,4 +96,11 @@ public class Member implements UserDetails {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+    public void modifyMember(String loginPw,String nickName,String email){
+        this.loginPw=loginPw;
+        this.nickName=nickName;
+        this.email=email;
+
+    }
 }

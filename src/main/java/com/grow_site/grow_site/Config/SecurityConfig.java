@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/members/join","/members/login","/members/check/**").anonymous() //URL이 간소화될수있도록함,  회원가입하는 url, 어나니머스는 로그인이 되지 않은 사람도 해당 페이지를 들어갈수 있도록함
 
                 .mvcMatchers("/").permitAll() // 로그인한 사람만 게시글에 대한 기능을 사용할 수 있도록 하는거
-                .mvcMatchers("/admin/**","/boards/2","/boards/3","/boards/4").authenticated()
+                .mvcMatchers("/admin/**","/boards/2","/boards/3","/boards/4","/members/modify/**").authenticated()
                 .mvcMatchers("/boards/1","/boards/5","/articles/**","/download/**").hasAnyRole("ADMIN","MEMBER")
                 .mvcMatchers("/boards/**").hasRole("ADMIN")
 

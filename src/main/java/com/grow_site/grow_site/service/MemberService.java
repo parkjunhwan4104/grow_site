@@ -2,6 +2,7 @@ package com.grow_site.grow_site.service;
 
 import com.grow_site.grow_site.Config.Role;
 import com.grow_site.grow_site.DTO.member.MemberLoginForm;
+import com.grow_site.grow_site.DTO.member.MemberModifyForm;
 import com.grow_site.grow_site.DTO.member.MemberSaveForm;
 import com.grow_site.grow_site.Dao.MemberRepository;
 import com.grow_site.grow_site.domain.Member;
@@ -79,10 +80,21 @@ public class MemberService implements UserDetailsService {
     }
 
 
+    public Member findById(Long id) throws IllegalStateException{
+
+        Optional<Member> memberOption=memberRepository.findById(id);
+        memberOption.orElseThrow(
+                ()-> new IllegalStateException("존재하지 않는 회원입니다.")
+        );
+        return memberOption.get();
+
+    }
+
 
 
 
     public Member findByLoginId(String loginId) throws IllegalStateException{
+
         Optional<Member> memberOption=memberRepository.findByLoginId(loginId);
         memberOption.orElseThrow(
                 ()-> new IllegalStateException("존재하지 않는 회원입니다.")
@@ -106,6 +118,24 @@ public class MemberService implements UserDetailsService {
 
     public boolean isDupleEmail(String email){
         return memberRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public void modifyMember(MemberModifyForm memberModifyForm,String loginId){
+
+        Member findMember=findByLoginId(loginId);
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+
+        findMember.modifyMember(
+                bCryptPasswordEncoder.encode(memberModifyForm.getLoginPw()),
+                memberModifyForm.getNickName(),
+                memberModifyForm.getEmail()
+
+
+        );
+
+
+
     }
 
 

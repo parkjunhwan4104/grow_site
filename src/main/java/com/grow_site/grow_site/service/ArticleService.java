@@ -2,6 +2,7 @@ package com.grow_site.grow_site.service;
 
 import com.grow_site.grow_site.DTO.article.ArticleDTO;
 import com.grow_site.grow_site.DTO.article.ArticleListDTO;
+import com.grow_site.grow_site.DTO.article.ArticleModifyForm;
 import com.grow_site.grow_site.DTO.article.ArticleSaveForm;
 import com.grow_site.grow_site.Dao.ArticleRepository;
 import com.grow_site.grow_site.Dao.FileRepository;
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final FileRepository fileRepository;
+
 
 
 
@@ -92,6 +93,33 @@ public class ArticleService {
 
     }
 
+
+    @Transactional
+    public void modifyArticle(ArticleModifyForm articleModifyForm,Long id,List<File> list){
+        Article findArticle=getById(id);
+
+        findArticle.modifyArticle(
+                articleModifyForm.getTitle(),
+                articleModifyForm.getBody()
+
+
+        );
+
+        for(File file:list){
+            file.setArticle(findArticle);
+        }
+
+
+
+
+    }
+
+    @Transactional
+    public void deleteArticle(Long id){
+        Article findArticle=getById(id);
+
+        articleRepository.delete(findArticle);
+    }
 
 
 
