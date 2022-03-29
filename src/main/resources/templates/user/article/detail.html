@@ -101,14 +101,20 @@
                 </div>
 
                 <div class="files" >
-                    <span class="ml-4 ">파일: </span>
 
-                    <th:block th:each="file:${listFile}">
-                        <a class="underline"  th:href="@{~/download/}+${file.id}">
-                            <span th:text="${file.name}"></span>
-                        </a>
-                        <span>,</span>
+                    <th:block th:if="${listFile.size() !=0}">
+                        <span class="ml-4">파일: </span>
+                        <th:block th:each="file:${listFile}">
+
+                            <a class="underline"  th:href="@{~/download/}+${file.id}">
+                                <span th:text="${file.name}"></span>
+
+                            </a>
+                            <span>&nbsp</span>
+
+                        </th:block>
                     </th:block>
+
 
 
                 </div>

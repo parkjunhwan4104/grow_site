@@ -3,6 +3,7 @@ package com.grow_site.grow_site.Controller;
 
 import com.grow_site.grow_site.DTO.admin.AdminMemberDetailDTO;
 import com.grow_site.grow_site.domain.Member;
+import com.grow_site.grow_site.service.AdminArticleService;
 import com.grow_site.grow_site.service.AdminMemberService;
 import com.grow_site.grow_site.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class AdminController {
 
     private final AdminService adminService;
     private final AdminMemberService adminMemberService;
+    private final AdminArticleService articleService;
 
     @GetMapping("/admin/main")
     public String showMain(Model model){
@@ -59,5 +61,22 @@ public class AdminController {
         return "redirect:/admin/members";
 
 
+    }
+
+    @GetMapping("/admin/articles")
+    public String showArticles(Model model){
+
+
+        model.addAttribute("articles",articleService.getArticleList());
+
+        return "admin/article/main";
+    }
+
+    @GetMapping("/admin/article/delete/{id}")
+    public String deleteArticle(@PathVariable(name="id")Long id){
+
+        articleService.deleteArticle(id);
+
+        return "redirect:/admin/articles";
     }
 }
