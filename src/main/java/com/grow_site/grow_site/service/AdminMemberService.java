@@ -1,5 +1,6 @@
 package com.grow_site.grow_site.service;
 
+import com.grow_site.grow_site.Config.Role;
 import com.grow_site.grow_site.DTO.admin.AdminMemberDetailDTO;
 import com.grow_site.grow_site.DTO.article.ArticleDTO;
 import com.grow_site.grow_site.DTO.article.ArticleListDTO;
@@ -69,5 +70,19 @@ public class AdminMemberService {
 
         Member member=memberOptional.get();
         memberRepository.delete(member);
+    }
+
+    @Transactional
+    public void updateGrade(Long id, Role authority){
+        Optional<Member> memberOptional=memberRepository.findById(id);
+
+        memberOptional.orElseThrow(
+                ()->new IllegalStateException("존재하지 않는 회원입니다.")
+
+        );
+
+        Member member=memberOptional.get();
+
+        member.setAuthority(authority);
     }
 }

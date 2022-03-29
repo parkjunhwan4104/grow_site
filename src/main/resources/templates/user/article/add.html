@@ -46,7 +46,7 @@
 
             <div class="form-container border border-grey-400 shadow-sm rounded-md">
 
-                <form action="" th:action="@{~/boards/} + ${boardId} + @{/articles/add}" th:object="${ArticleSaveForm}" method="POST"  class="p-12" enctype="multipart/form-data" >
+                <form action="" th:action="@{~/boards/articles/add/}+${boardId}" th:object="${ArticleSaveForm}" method="POST"  class="p-12" enctype="multipart/form-data" >
                     <input type="hidden" th:value="${boardId}" name="board_id">
 
                     <div class="form-item">

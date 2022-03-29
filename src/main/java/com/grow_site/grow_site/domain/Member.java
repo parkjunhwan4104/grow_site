@@ -103,4 +103,8 @@ public class Member implements UserDetails {
         this.email=email;
 
     }
+
+    public void setAuthority(Role authority){
+        this.authority=authority;
+    }
 }

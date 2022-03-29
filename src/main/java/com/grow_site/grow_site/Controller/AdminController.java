@@ -1,6 +1,7 @@
 package com.grow_site.grow_site.Controller;
 
 
+import com.grow_site.grow_site.Config.Role;
 import com.grow_site.grow_site.DTO.admin.AdminMemberDetailDTO;
 import com.grow_site.grow_site.domain.Member;
 import com.grow_site.grow_site.service.AdminArticleService;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -47,10 +50,30 @@ public class AdminController {
 
         AdminMemberDetailDTO adminMemberDetailDTO=adminMemberService.getMemberDetail(id);
         model.addAttribute("member",adminMemberDetailDTO);
+        model.addAttribute("id",adminMemberDetailDTO.getMemberId());
 
         return "admin/member/detail";
 
 
+    }
+
+    @PostMapping("/admin/members/detail/{id}")
+    public String doUpdateGrade(@PathVariable(name="id")Long id, @RequestParam(name="authority")String authority){
+
+        if(authority.equals("admin")){
+            adminMemberService.updateGrade(id,Role.ADMIN);
+
+        }
+        else if(authority.equals("member")){
+            adminMemberService.updateGrade(id,Role.MEMBER);
+        }
+        else{
+            adminMemberService.updateGrade(id,Role.GUEST);
+        }
+
+
+
+        return "redirect:/admin/members/detail/"+id;
     }
 
     @GetMapping("/admin/members/ban/{id}")

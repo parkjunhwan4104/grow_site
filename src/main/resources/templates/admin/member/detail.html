@@ -23,7 +23,20 @@
                 <th>아이디</th>
                 <th>닉네임</th>
                 <th>가입일</th>
+
             </tr>
+            <form th:action="@{~/admin/members/detail/}+${id}" method="POST">
+                <select name="authority" >
+                    <option value="none">==등급 설정==</option>
+                    <option value="admin">관리자</option>
+                    <option value="member">회원</option>
+                    <option value="guest">게스트</option>
+
+
+                </select>
+
+                <button  class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">확인</button>
+            </form>
             </thead>
             <tbody>
             <td th:text="${member.loginId}">1</td>
@@ -33,6 +46,8 @@
         </table>
 
         <hr>
+
+
         <h2>작성한 게시물</h2>
         <table>
             <thead>
@@ -59,6 +74,8 @@
             </tbody>
         </table>
     </div>
+
+
 
 </div>
 </body>

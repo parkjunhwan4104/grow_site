@@ -43,7 +43,7 @@ public class ArticleController {
 
 
 
-    @GetMapping("/boards/{id}/articles/add")
+    @GetMapping("/boards/articles/add/{id}")
     public String showAddArticle(@PathVariable(name="id")Long id, Model model){
 
         Board board=boardService.getBoard(id);
@@ -57,7 +57,7 @@ public class ArticleController {
         return "user/article/add";
     }
 
-    @PostMapping("/boards/{id}/articles/add")
+    @PostMapping("/boards/articles/add/{id}")
     public String doAddArticle(@Validated ArticleSaveForm articleSaveForm, BindingResult bindingResult, @PathVariable(name="id")Long id, Model model, Principal principal,@RequestParam("file") MultipartFile multipartFile) throws IOException {
 
 
@@ -143,7 +143,7 @@ public class ArticleController {
 
    }
 
-   @GetMapping("/articles/{id}/modify")
+   @GetMapping("/articles/modify/{id}")
    public String showModify(@PathVariable(name="id")Long id,Model model){
 
         List<File> fileList=fileService.getFileListByArticleId(id);
@@ -161,7 +161,7 @@ public class ArticleController {
         return "user/article/modify";
    }
 
-   @PostMapping("/articles/{id}/modify")
+   @PostMapping("/articles/modify/{id}")
     public String doModify(@Validated ArticleModifyForm articleModifyForm,BindingResult bindingResult,@PathVariable(name="id")Long id,Model model,@RequestParam("file") MultipartFile multipartFile){
 
         List<File> listFile=fileService.getFileListByArticleId(id);
@@ -193,7 +193,7 @@ public class ArticleController {
         return "redirect:/articles/"+id;
    }
 
-   @GetMapping("/articles/{id}/delete")
+   @GetMapping("/articles/delete/{id}")
     public String deleteArticle(@PathVariable(name="id")Long id){
 
        ArticleDTO articleDTO= articleService.getArticleById(id);
