@@ -1,9 +1,6 @@
 package com.grow_site.grow_site.Controller;
 
-import com.grow_site.grow_site.DTO.member.CheckStatus;
-import com.grow_site.grow_site.DTO.member.MemberLoginForm;
-import com.grow_site.grow_site.DTO.member.MemberModifyForm;
-import com.grow_site.grow_site.DTO.member.MemberSaveForm;
+import com.grow_site.grow_site.DTO.member.*;
 import com.grow_site.grow_site.domain.Member;
 import com.grow_site.grow_site.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -140,6 +137,28 @@ public class MemberController {
             }
 
             return "redirect:/";
+    }
+
+    @GetMapping("/members/mail/findPw")
+    public String showChangePw(){
+
+        return "user/member/findPw";
+    }
+
+    @ResponseBody
+    @PostMapping("mails/find/pw")
+    public boolean doChangePw(@RequestBody FindPasswordForm findPasswordForm){
+        if(!memberService.isDupleLoginId(findPasswordForm.getLoginId())){
+            return false;
+        }
+        try{
+            memberService.sendMail(findPasswordForm);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 

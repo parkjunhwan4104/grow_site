@@ -107,4 +107,8 @@ public class Member implements UserDetails {
     public void setAuthority(Role authority){
         this.authority=authority;
     }
+
+    public void changePw(String password){
+        this.loginPw=password;
+    }
 }

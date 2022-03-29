@@ -5,6 +5,18 @@ spring:
     activate:
       on-profile: dev
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: wnsghks4104@gmail.com
+    password: [비밀번호]
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://[Rds endPoint]/[DB name]?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull&connectTimeout=60
@@ -24,7 +36,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true

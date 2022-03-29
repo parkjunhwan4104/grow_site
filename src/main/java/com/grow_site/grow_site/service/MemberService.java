@@ -1,12 +1,15 @@
 package com.grow_site.grow_site.service;
 
 import com.grow_site.grow_site.Config.Role;
+import com.grow_site.grow_site.DTO.member.FindPasswordForm;
 import com.grow_site.grow_site.DTO.member.MemberLoginForm;
 import com.grow_site.grow_site.DTO.member.MemberModifyForm;
 import com.grow_site.grow_site.DTO.member.MemberSaveForm;
 import com.grow_site.grow_site.Dao.MemberRepository;
 import com.grow_site.grow_site.domain.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,8 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.internet.MimeMessage;
 import javax.swing.text.html.Option;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor //초기화되지 않은 final 필드에 대해 생성자를 생성해줌
@@ -23,7 +28,8 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private Member member;
+    private final JavaMailSender javaMailSender;
+    private static final String FROM_ADDRESS="wnsghks4104@gmail.com";
 
 
     @Override
@@ -138,7 +144,34 @@ public class MemberService implements UserDetailsService {
 
     }
 
+    @Transactional
+    public void changePw(String password,Member member){
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        member.changePw(bCryptPasswordEncoder.encode(password));
+    }
 
+
+    @Transactional
+    public void sendMail(FindPasswordForm findPasswordForm) {
+        Member findMember =findByLoginId(findPasswordForm.getLoginId());
+        System.out.println(findMember.getLoginPw());
+        String uuid= UUID.randomUUID().toString();
+        String tempPw=uuid.substring(0,5);
+        changePw(tempPw,findMember);
+        System.out.println(findMember.getLoginPw());
+        try{
+            MimeMessage mail=javaMailSender.createMimeMessage();
+            MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+            mailHelper.setFrom(FROM_ADDRESS);  //누가 보낼것인지
+            mailHelper.setTo(findPasswordForm.getEmail());  //누가 받을 것인지
+            mailHelper.setSubject("GROW에서 임시 비밀번호를 보내드립니다.");
+            mailHelper.setText(findMember.getNickName()+"님의 임시 비밀번호는"+tempPw+"입니다.\r\n 로그인 후 비밀번호를 변경해 주시기 바랍니다.");
+            javaMailSender.send(mail);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
 
