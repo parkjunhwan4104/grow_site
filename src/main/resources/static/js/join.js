@@ -12,7 +12,7 @@ async function checkDupleLoginId(){
     let inputLoginId= document.querySelector("#loginId")
     let loginId=inputLoginId.value;
 
-    await fetch("http://localhost:8080/members/check/id?loginId=" +loginId)
+    await fetch("http://www.grow.or.kr/members/check/id?loginId=" +loginId)
     .then(
 
         (response)=> {
@@ -63,7 +63,7 @@ async function checkDupleNickName(){
         let inputNickName= document.querySelector("#nickName")
         let nickName=inputNickName.value;
 
-        await fetch("http://localhost:8080/members/check/nickName?nickName=" +nickName)
+        await fetch("http://www.grow.or.kr/members/check/nickName?nickName=" +nickName)
         .then(
 
             (response)=> {
@@ -115,7 +115,7 @@ async function checkDupleEmail(){
         let inputEmail= document.querySelector("#email")
         let email=inputEmail.value;
 
-        await fetch("http://localhost:8080/members/check/email?email=" +email)
+        await fetch("http://www.grow.or.kr/members/check/email?email=" +email)
         .then(
 
             (response)=> {

@@ -42,7 +42,7 @@ async function findPw(e){
     findContent.hidden=true;
     progress.hidden=false;
 
-    await fetch("http://localhost:8080/mails/find/pw",data)  //해당 url에 대한 추가적인 데이터를 넣어주는거(객체로 받아서 넣어준거)
+    await fetch("http://www.grow.or.kr/mails/find/pw",data)  //해당 url에 대한 추가적인 데이터를 넣어주는거(객체로 받아서 넣어준거)
     .then(
         (response) =>{
             return response.json();
@@ -59,7 +59,7 @@ async function findPw(e){
         }
         else{
           alert("발급된 임시 비밀번호를 입력하신 이메일로 전송하였습니다.");
-          window.location.replace("http://localhost:8080/");
+          window.location.replace("http://www.grow.or.kr/");
         }
 
         }

@@ -11,9 +11,9 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class FindPasswordForm {
 
-
+    @NotBlank(message="아이디를 입력해 주세요")
     private String loginId;
 
-
+    @NotBlank(message="이메일을 입력해 주세요")
     private String email;
 }
