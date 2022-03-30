@@ -52,6 +52,10 @@ public class BoardController {
 
             int lastPage=(int)Math.ceil(articleListDTOList.size()/(double)size);
 
+            if(lastPage==0){
+                page=0;
+            }
+
             if(page==lastPage){
                 lastIndex= articleListDTOList.size();
 
