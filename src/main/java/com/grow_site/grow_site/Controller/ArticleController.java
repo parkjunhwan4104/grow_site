@@ -28,7 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.*;
 
@@ -131,13 +133,16 @@ public class ArticleController {
        File file=result.get();
 
 
-       response.setContentType("application/octet-stream");
+       response.setContentType("application/octet-stream;charset=UTF-8");
        String headerKey="Content-Disposition";
-       String headerValue="attachment; filename=" +file.getName();
+       String headerValue="attachment; filename=" + URLEncoder.encode(file.getName(),"UTF-8");
 
        response.setHeader(headerKey,headerValue);
 
+
        ServletOutputStream outputStream=response.getOutputStream();
+
+
        outputStream.write(file.getContent());
        outputStream.close();
 

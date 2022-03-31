@@ -3,6 +3,7 @@ package com.grow_site.grow_site.domain;
 
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class File {
 
     @Id
@@ -35,12 +37,6 @@ public class File {
     @Column(columnDefinition="LONGBLOB")
     private byte[] content;
 
-    public File(Long id, String name, Long size){
-        super();
-        this.id=id;
-        this.name=name;
-        this.size=size;
-    }
 
 
 
