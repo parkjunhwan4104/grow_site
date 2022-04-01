@@ -85,6 +85,8 @@ public class Datainit {
             );
             boardRepository.save(board5);
 
+
+
         }
     }
 }
